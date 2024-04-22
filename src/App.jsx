@@ -4,29 +4,38 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
+
+  const generateRandomCode = () => {
+    // Generate random alphanumeric characters
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let randomCode = '';
+    for (let i = 0; i < 6; i++) {
+      randomCode += characters.charAt(Math.floor(Math.random() * characters.length));
+    }
+    // Display the generated code
+    document.getElementById('code').value = randomCode;
+  }
+
   return (
-    <div className="App">
-      <div>
-        <img src={viteLogo} className="logo" alt="Vite logo" />
-        <img src={reactLogo} className="logo react" alt="React logo" />
+    <div>
+      <div className="wave-group">
+          <input required type="text" id="code" className="input" />
+          <span className="bar"></span>
+          <label className="label">
+            <span className="label-char" style={{ '--index': 0 }}>C</span>
+            <span className="label-char" style={{ '--index': 1 }}>o</span>
+            <span className="label-char" style={{ '--index': 2 }}>d</span>
+            <span className="label-char" style={{ '--index': 3 }}>e</span>
+          </label>
+        </div>
+        <button className="animated-button mt-4" onClick={() => generateRandomCode()}>
+          <span>Generate Code</span>
+          <span></span>
+        </button>
       </div>
-      <h1>Welcome to Clerkenwell Bio Centre</h1>
-      <h3>
-        Experts in clinical biophysical research and hardware development.
-      </h3>
-      <h3>
-        For the first time, we are welcoming a limited amount of carefully
-        selected subjects to our research centre. Our newest invention - a
-        machine unlike anything on the market - promotes unprecedented
-        reparative attributes in human subjects. To apply to be a trialist,
-        please fill in the form below.
-      </h3>
-      <h4>This product showcase is called:</h4>
-      <h4>VEGETABLES.</h4>
-      <h4>{`[Video]`}</h4>
-      <div className="card"></div>
-    </div>
   );
+
+  
 }
 
 export default App;
