@@ -9,6 +9,7 @@ function Questions() {
   const [otherCondition, setOtherCondition] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [selectedTrialOption, setSelectedTrialOption] = useState("");
   const [error, setError] = useState("");
 
   const handleCloseModal = () => {
@@ -18,6 +19,7 @@ function Questions() {
     setOtherCondition("");
     setUserName("");
     setEmail("");
+    setSelectedTrialOption("");
     setError("");
   };
 
@@ -39,6 +41,12 @@ function Questions() {
           (selectedCondition === "Other" && !otherCondition.trim())
         ) {
           setError("Please select a condition");
+          return;
+        }
+        break;
+      case 3:
+        if (!selectedTrialOption) {
+          setError("Please select at least one trial option");
           return;
         }
         break;
@@ -65,6 +73,10 @@ function Questions() {
 
   const handleOtherConditionChange = (e) => {
     setOtherCondition(e.target.value);
+  };
+
+  const handleTrialOptionChange = (option) => {
+    setSelectedTrialOption(option);
   };
 
   const isValidEmail = (email) => {
@@ -143,7 +155,42 @@ function Questions() {
               in Clerkenwell. The more you choose, the more likely you will be
               offered a slot.
             </p>
-            {/* Add trial options here */}
+            <Dropdown>
+              <Dropdown.Toggle className="w-100">
+                {selectedTrialOption ? selectedTrialOption : "Select Slot"}
+              </Dropdown.Toggle>
+              <Dropdown.Menu className="w-100">
+                {[
+                  "Saturday 8th: 8pm",
+                  "Sunday 9th: 4pm",
+                  "Sunday 9th: 8pm",
+                  "Tuesday 11th: 8pm",
+                  "Wednesday 12th: 8pm",
+                  "Thursday 13th: 4pm",
+                  "Thursday 13th: 8pm",
+                  "Friday 14th: 8pm",
+                  "Saturday 15th: 4pm",
+                  "Saturday 15th: 8pm",
+                  "Sunday 16th: 4pm",
+                  "Sunday 16th: 8pm",
+                  "Tuesday 18th: 8pm",
+                  "Wednesday 19th: 8pm",
+                  "Thursday 20th: 8pm",
+                  "Friday 21st: 1 show 8pm",
+                  "Saturday 22nd: 4pm",
+                  "Saturday 22nd: 8pm",
+                  "Sunday 23rd: 4pm",
+                  "Sunday 23rd: 8pm",
+                ].map((option, index) => (
+                  <Dropdown.Item
+                    key={index}
+                    onClick={() => handleTrialOptionChange(option)}
+                  >
+                    {option}
+                  </Dropdown.Item>
+                ))}
+              </Dropdown.Menu>
+            </Dropdown>
             {error && <p className="text-danger mt-2">{error}</p>}
           </div>
         );
@@ -172,11 +219,14 @@ function Questions() {
   };
 
   return (
-      <div className="mt-3">
-        <button className="animated-button mt-4 mb-5 mt-3" onClick={handleShowModal}>
-            <span>Apply</span>
-            <span></span>
-        </button>
+    <div className="mt-3">
+      <button
+        className="animated-button mt-4 mb-5 mt-3"
+        onClick={handleShowModal}
+      >
+        <span>Apply</span>
+        <span></span>
+      </button>
 
       {/* Modal */}
       <Modal show={showModal} onHide={handleCloseModal}>
