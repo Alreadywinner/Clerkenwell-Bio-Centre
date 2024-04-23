@@ -52,12 +52,7 @@ export default function Home() {
     typeWriter();
   }, []);
   return (
-    <div
-      style={{
-        backgroundColor: "#242424",
-      }}
-      className="text-center"
-    >
+    <div className="text-center app-background">
       <div>
         <img src={viteLogo} className="logo" alt="Vite logo" />
       </div>
