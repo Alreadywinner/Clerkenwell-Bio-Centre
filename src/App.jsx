@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import Home from "./Home";
 
 function App() {
 
@@ -17,22 +18,25 @@ function App() {
   }
 
   return (
+    // <div>
+    //   <div className="wave-group">
+    //       <input required type="text" id="code" className="input" />
+    //       <span className="bar"></span>
+    //       <label className="label">
+    //         <span className="label-char" style={{ '--index': 0 }}>C</span>
+    //         <span className="label-char" style={{ '--index': 1 }}>o</span>
+    //         <span className="label-char" style={{ '--index': 2 }}>d</span>
+    //         <span className="label-char" style={{ '--index': 3 }}>e</span>
+    //       </label>
+    //     </div>
+    //     <button className="animated-button mt-4" onClick={() => generateRandomCode()}>
+    //       <span>Generate Code</span>
+    //       <span></span>
+    //     </button>
+    //   </div>
     <div>
-      <div className="wave-group">
-          <input required type="text" id="code" className="input" />
-          <span className="bar"></span>
-          <label className="label">
-            <span className="label-char" style={{ '--index': 0 }}>C</span>
-            <span className="label-char" style={{ '--index': 1 }}>o</span>
-            <span className="label-char" style={{ '--index': 2 }}>d</span>
-            <span className="label-char" style={{ '--index': 3 }}>e</span>
-          </label>
-        </div>
-        <button className="animated-button mt-4" onClick={() => generateRandomCode()}>
-          <span>Generate Code</span>
-          <span></span>
-        </button>
-      </div>
+      <Home />
+    </div>
   );
 
   

@@ -1,10 +1,3 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
-
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -13,32 +6,6 @@
 }
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
 
 .wave-group {
@@ -121,8 +88,8 @@
   background-color: inherit;
   border-radius: 100px;
   font-weight: 600;
-  color: #ffffff40;
-  box-shadow: 0 0 0 2px #ffffff20;
+  color: white;
+  box-shadow: 0 0 0 2px white;
   cursor: pointer;
   overflow: hidden;
   transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
@@ -130,12 +97,13 @@
 
 .animated-button span:last-child {
   position: absolute;
+  
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 20px;
   height: 20px;
-  background-color: #2196F3;
+  background-color: white;
   border-radius: 50%;
   opacity: 0;
   transition: all 0.8s cubic-bezier(0.23, 1, 0.320, 1);
@@ -147,8 +115,8 @@
 }
 
 .animated-button:hover {
-  box-shadow: 0 0 0 5px #2195f360;
-  color: #ffffff;
+  box-shadow: 0 0 0 5px white;
+  color: black;
 }
 
 .animated-button:active {
@@ -156,8 +124,8 @@
 }
 
 .animated-button:hover span:last-child {
-  width: 150px;
-  height: 150px;
+  width: 175px;
+  height: 175px;
   opacity: 1;
 }
 
@@ -165,3 +133,14 @@
   margin-top: 4vh;
 }
 
+.typewriter {
+  width: 80%;
+  display: inline-block;
+  text-align: left;
+}
+.text-center {
+  text-align: center;
+}
+.display-block {
+  display: block;
+}
