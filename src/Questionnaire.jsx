@@ -1,27 +1,39 @@
 import React, { useState } from "react";
-import { Dropdown, Form, FormGroup } from "react-bootstrap";
+import { Form, FormGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import { conditionsData, theatreDates } from "./constants";
 
 const RenderQuestion = ({
   currentQuestion,
   userName,
   setUserName,
   error,
-  selectedCondition,
+  selectedConditions,
   handleConditionChange,
   email,
   setEmail,
   handleOtherConditionChange,
   handleTrialOptionChange,
-  selectedTrialOption,
+  selectedTrialOptions,
 }) => {
   const navigate = useNavigate();
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      color: "black",
+    }),
+    menu: (provided) => ({
+      ...provided,
+      zIndex: 9, // Adjust the zIndex to ensure it overlays other elements
+    }),
+  };
 
   switch (currentQuestion) {
     case 1:
       return (
         <div>
-          <p>What's your name?</p>
+          <p className="text-white">What's your name?</p>
           <Form.Control
             type="text"
             placeholder="Enter your name"
@@ -34,44 +46,28 @@ const RenderQuestion = ({
     case 2:
       return (
         <div>
-          <p>
+          <p className="text-white">
             Do you have any of the following? Please click on all that apply.
           </p>
-          <Dropdown>
-            <Dropdown.Toggle className="w-100">
-              {selectedCondition ? selectedCondition : "Select condition"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="w-100">
-              {[
-                "ADHD",
-                "Chronic Gout",
-                "Herpes Simplex",
-                "Weak Bladder",
-                "Attention-Seeking Disorder",
-                "Pruritus Ani",
-                "Baldness",
-                "Sexual Anxiety",
-                "Internet Addiction",
-                "Muscle Dysmorphia",
-                "Impotence",
-                "Foot Odour",
-                "Nail Fungus",
-                "Other",
-              ].map((condition, index) => (
-                <Dropdown.Item
-                  key={index}
-                  onClick={() => handleConditionChange(condition)}
-                >
-                  {condition}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
-          {selectedCondition === "Other" && (
+          <Select
+            isMulti
+            name="Condition"
+            options={conditionsData}
+            classNamePrefix="select"
+            styles={customStyles}
+            value={selectedConditions}
+            onChange={handleConditionChange}
+          />
+          {selectedConditions.some(
+            (condition) => condition.value === "Other"
+          ) && (
             <Form.Control
               type="text"
               placeholder="Specify other condition"
-              value={otherCondition}
+              className="mt-3"
+              value={
+                selectedConditions.find((c) => c.value === "Other")?.label || ""
+              }
               onChange={handleOtherConditionChange}
             />
           )}
@@ -82,46 +78,17 @@ const RenderQuestion = ({
       return (
         <div>
           <p className="text-white">
-            Please choose all trials you would be able to attend. We are based
-            in Clerkenwell. The more you choose, the more likely you will be
-            offered a slot.
+            Please choose all trials you would be able to attend.
           </p>
-          <Dropdown>
-            <Dropdown.Toggle className="w-100">
-              {selectedTrialOption ? selectedTrialOption : "Select Slot"}
-            </Dropdown.Toggle>
-            <Dropdown.Menu className="w-100">
-              {[
-                "Saturday 8th: 8pm",
-                "Sunday 9th: 4pm",
-                "Sunday 9th: 8pm",
-                "Tuesday 11th: 8pm",
-                "Wednesday 12th: 8pm",
-                "Thursday 13th: 4pm",
-                "Thursday 13th: 8pm",
-                "Friday 14th: 8pm",
-                "Saturday 15th: 4pm",
-                "Saturday 15th: 8pm",
-                "Sunday 16th: 4pm",
-                "Sunday 16th: 8pm",
-                "Tuesday 18th: 8pm",
-                "Wednesday 19th: 8pm",
-                "Thursday 20th: 8pm",
-                "Friday 21st: 1 show 8pm",
-                "Saturday 22nd: 4pm",
-                "Saturday 22nd: 8pm",
-                "Sunday 23rd: 4pm",
-                "Sunday 23rd: 8pm",
-              ].map((option, index) => (
-                <Dropdown.Item
-                  key={index}
-                  onClick={() => handleTrialOptionChange(option)}
-                >
-                  {option}
-                </Dropdown.Item>
-              ))}
-            </Dropdown.Menu>
-          </Dropdown>
+          <Select
+            isMulti
+            name="TrialOption"
+            options={theatreDates}
+            classNamePrefix="select"
+            styles={customStyles}
+            value={selectedTrialOptions}
+            onChange={handleTrialOptionChange}
+          />
           {error && <p className="text-danger mt-2">{error}</p>}
         </div>
       );
@@ -142,9 +109,7 @@ const RenderQuestion = ({
       return (
         <div>
           <p className="text-white">
-            Thank you for submitting your application to be a trialist at
-            VEGETABLES. We will email you very soon to let you know if you have
-            been successful.
+            Thank you for submitting your application!
           </p>
           <button
             className="animated-button mt-4 mb-5 mt-3"
@@ -158,13 +123,12 @@ const RenderQuestion = ({
   }
 };
 
-export default function Questionnaire() {
+const Questionnaire = () => {
   const [currentQuestion, setCurrentQuestion] = useState(1);
-  const [selectedCondition, setSelectedCondition] = useState("");
-  const [otherCondition, setOtherCondition] = useState("");
+  const [selectedConditions, setSelectedConditions] = useState([]);
+  const [selectedTrialOptions, setSelectedTrialOptions] = useState([]);
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [selectedTrialOption, setSelectedTrialOption] = useState("");
   const [error, setError] = useState("");
 
   const handleNextQuestion = () => {
@@ -176,16 +140,13 @@ export default function Questionnaire() {
         }
         break;
       case 2:
-        if (
-          !selectedCondition ||
-          (selectedCondition === "Other" && !otherCondition.trim())
-        ) {
-          setError("Please select a condition");
+        if (selectedConditions.length === 0) {
+          setError("Please select at least one condition");
           return;
         }
         break;
       case 3:
-        if (!selectedTrialOption) {
+        if (selectedTrialOptions.length === 0) {
           setError("Please select at least one trial option");
           return;
         }
@@ -207,16 +168,22 @@ export default function Questionnaire() {
     setError("");
   };
 
-  const handleConditionChange = (condition) => {
-    setSelectedCondition(condition);
+  const handleConditionChange = (selectedOptions) => {
+    setSelectedConditions(selectedOptions);
+  };
+
+  const handleTrialOptionChange = (selectedOptions) => {
+    setSelectedTrialOptions(selectedOptions);
   };
 
   const handleOtherConditionChange = (e) => {
-    setOtherCondition(e.target.value);
-  };
-
-  const handleTrialOptionChange = (option) => {
-    setSelectedTrialOption(option);
+    const otherConditionOption = { value: "Other", label: e.target.value };
+    setSelectedConditions((prevOptions) => {
+      const filteredOptions = prevOptions.filter(
+        (option) => option.value !== "Other"
+      );
+      return [...filteredOptions, otherConditionOption];
+    });
   };
 
   const isValidEmail = (email) => {
@@ -226,20 +193,20 @@ export default function Questionnaire() {
   };
 
   return (
-    <div className="app-background text-white questionnaire-container">
+    <div className="app-background questionnaire-container">
       <div className="question-container">
         <RenderQuestion
           currentQuestion={currentQuestion}
           userName={userName}
           setUserName={setUserName}
           error={error}
-          selectedCondition={selectedCondition}
+          selectedConditions={selectedConditions}
           handleConditionChange={handleConditionChange}
           email={email}
           setEmail={setEmail}
           handleOtherConditionChange={handleOtherConditionChange}
           handleTrialOptionChange={handleTrialOptionChange}
-          selectedTrialOption={selectedTrialOption}
+          selectedTrialOptions={selectedTrialOptions}
         />
         {currentQuestion !== 5 && (
           <button
@@ -253,4 +220,6 @@ export default function Questionnaire() {
       </div>
     </div>
   );
-}
+};
+
+export default Questionnaire;
