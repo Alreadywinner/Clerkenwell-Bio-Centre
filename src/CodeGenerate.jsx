@@ -6,7 +6,8 @@ function CodeGenerate() {
   const [error, setError] = useState("");
   const [selectedTrialOption, setSelectedTrialOption] = useState("");
   const [price, setPrice] = useState("");
-  const [expiryHours, setExpiryHours] = useState("");
+  const [expiryDateTime, setExpiryDateTime] = useState("");
+
   const generateRandomCode = () => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let randomCode = "";
@@ -26,8 +27,8 @@ function CodeGenerate() {
     setPrice(option);
   };
 
-  const handleExpiryHourOptionChange = (option) => {
-    setExpiryHours(option);
+  const handleExpiryDateTimeChange = (e) => {
+    setExpiryDateTime(e.target.value);
   };
 
   return (
@@ -70,7 +71,7 @@ function CodeGenerate() {
           </Dropdown.Menu>
         </Dropdown>
         {error && <p className="text-danger mt-2">{error}</p>}
-        <Dropdown className="mt-5">
+        <Dropdown className="mt-3">
           <Dropdown.Toggle className="w-100">
             {price ? price : "Select Price"}
           </Dropdown.Toggle>
@@ -86,22 +87,14 @@ function CodeGenerate() {
           </Dropdown.Menu>
         </Dropdown>
         {error && <p className="text-danger mt-2">{error}</p>}
-        <Dropdown className="mt-5">
-          <Dropdown.Toggle className="w-100">
-            {expiryHours ? expiryHours : "how long the code is valid for ?"}
-          </Dropdown.Toggle>
-          <Dropdown.Menu className="w-100">
-            {["48 Hours", "72 Hours"].map((option, index) => (
-              <Dropdown.Item
-                key={index}
-                onClick={() => handleExpiryHourOptionChange(option)}
-              >
-                {option}
-              </Dropdown.Item>
-            ))}
-          </Dropdown.Menu>
-        </Dropdown>
-        {error && <p className="text-danger mt-2">{error}</p>}
+        {/* Input for expiry date and time */}
+        <input
+          type="datetime-local"
+          value={expiryDateTime}
+          onChange={handleExpiryDateTimeChange}
+          className="mt-3 text-black date-time-input"
+        />
+
         <div className="wave-group mt-5">
           <input
             required
