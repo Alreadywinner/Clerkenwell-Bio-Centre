@@ -29,17 +29,6 @@ const RenderQuestion = ({
     }),
   };
 
-  const handleSubmit = () => {
-    const data = {
-      userName,
-      selectedConditions,
-      selectedTrialOptions,
-      email,
-    };
-    console.log(data); // You can use the data as needed, such as sending it to an API or storing it in state
-    navigate("/");
-  };
-
   switch (currentQuestion) {
     case 1:
       return (
@@ -124,7 +113,7 @@ const RenderQuestion = ({
           </p>
           <button
             className="animated-button mt-4 mb-5 mt-3"
-            onClick={handleSubmit}
+            onClick={() => navigate("/")}
           >
             <span>Go Back</span>
             <span></span>
@@ -176,6 +165,9 @@ const Questionnaire = () => {
         break;
     }
     setCurrentQuestion((prev) => prev + 1);
+    if(currentQuestion == 4) {
+      handleSubmit();
+    }
     setError("");
   };
 
@@ -196,6 +188,17 @@ const Questionnaire = () => {
       return [...filteredOptions, otherConditionOption];
     });
   };
+
+  const handleSubmit = () => {
+    const data = {
+      userName,
+      selectedConditions,
+      selectedTrialOptions,
+      email,
+    };
+    console.log(data); // You can use the data as needed, such as sending it to an API or storing it in state
+  };
+
 
   const isValidEmail = (email) => {
     // Regular expression pattern for email validation
