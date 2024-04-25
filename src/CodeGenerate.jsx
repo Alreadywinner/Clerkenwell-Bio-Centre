@@ -37,6 +37,7 @@ function CodeGenerate() {
     } else if (code == "") {
       setError("Please enter code");
     } else {
+      handleSubmit();
     }
   };
 
@@ -58,6 +59,19 @@ function CodeGenerate() {
 
   const handleCodeChange = (e) => {
     setCode(e.target.value);
+  };
+
+  const handleSubmit = () => {
+    const data = {
+      userName,
+      selectedConditions,
+      selectedTrialOptions,
+      email,
+      code,
+      selectedTrialOption,
+      price,
+      expiryDateTime,
+    };
   };
 
   return (
