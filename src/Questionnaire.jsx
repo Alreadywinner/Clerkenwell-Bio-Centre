@@ -29,6 +29,17 @@ const RenderQuestion = ({
     }),
   };
 
+  const handleSubmit = () => {
+    const data = {
+      userName,
+      selectedConditions,
+      selectedTrialOptions,
+      email,
+    };
+    console.log(data); // You can use the data as needed, such as sending it to an API or storing it in state
+    navigate("/");
+  };
+
   switch (currentQuestion) {
     case 1:
       return (
@@ -113,7 +124,7 @@ const RenderQuestion = ({
           </p>
           <button
             className="animated-button mt-4 mb-5 mt-3"
-            onClick={() => navigate("/")}
+            onClick={handleSubmit}
           >
             <span>Go Back</span>
             <span></span>
