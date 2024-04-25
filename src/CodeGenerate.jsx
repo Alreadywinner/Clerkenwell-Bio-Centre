@@ -36,17 +36,17 @@ function CodeGenerate() {
     // }
     // setCode(randomCode);
     if(selectedTrialOption == '') {
-      setError('hello');
+      setError('Please select slot');
     } else if (price == '') {
-      setError('hello1');
+      setError('Please select price');
     } else if (expiryDateTime == '') {
-      setError('hello2');
+      setError('Please enter expiry date');
     } else if (!validateFutureDateTime(expiryDateTime)) {
-      setError('hello3');
+      setError('Invalid expiry date');
     } else if (email == '') {
-      setError('hello4');
+      setError('Please enter email');
     } else if (!validateEmail(email)) {
-      setError('hello4');
+      setError('Invalid email');
     } else {
 
     }
@@ -135,7 +135,7 @@ function CodeGenerate() {
           type="email"
           required
           value={email}
-          placeholder="Enter Email"
+          placeholder="Enter Receiver Email"
           onChange={handleEmailChange}
           className="mt-3 text-black email-input form-control"
         />
