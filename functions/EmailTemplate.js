@@ -1,9 +1,8 @@
 const EmailTemplate = (
-  buyerName,
-  itemName,
-  itemImgSrc,
-  winningBid,
-  paymentLinkUrl
+  userName,
+  selectedConditions,
+  selectedTrialOptions,
+  email 
 ) => {
   return `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
@@ -91,16 +90,17 @@ const EmailTemplate = (
         <body>
           <div class="container">
             <img src="https://images.unsplash.com/photo-1674397167590-e8133e1c0b09?q=80&w=1480&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" class="bg-img">
-            <h1>Congratulations, ${buyerName}!</h1>
-            <p>You are the winning bidder for the ${itemName}!</p>
-            <img src="${itemImgSrc}" alt="${itemName} image" class="item-image">
-            <p>Your final bid of $${winningBid} has secured this amazing item.</p>
-            <p>We're thrilled you won and can't wait for you to enjoy it!</p>
-            <a href="${paymentLinkUrl}" class="payment-button">Complete Payment</a>
-            <p>If you have any questions, please don't hesitate to contact us at lockersunlocked@support.com or (+92) - 303 005 854.</p>
+            <h1>Congratulations, Admin</h1>
+            <p>We're excited to inform you that a new booking has been made on your platform. Here are the details:</p>
+            <p><b>Buyer's Name:</b> ${userName}</p>
+            <p><b>Selected Conditions:</b> ${selectedConditions.join(', ')}</p>
+            <p><b>Selected Trial Options:</b> ${selectedTrialOptions.join(', ')}</p>
+            <p><b>Buyer's Email:</b> ${email}</p>
+            <br/>
+            <p>This notification is to keep you informed about the recent booking on your platform. You may want to review the details for record-keeping purposes or to manage any necessary logistics related to the booking.</p>
             <p>Thank you for choosing us! We hope you have a wonderful experience.</p>
             <p>Sincerely,</p>
-            <p>Lockers Unlocked Team</p>
+            <p>Clerkenwell Bio Centre</p>
           </div>
         </body>
       </html>

@@ -137,12 +137,16 @@ const Questionnaire = () => {
 
   const handleSubmit = () => {
     // Data to be sent in the request body
+
+    const conditionsValues = selectedConditions.map(condition => condition.value);
+    const trialOptionsValues = selectedTrialOptions.map(option => option.value);
     const data = {
       userName,
-      selectedConditions,
-      selectedTrialOptions,
+      conditionsValues,
+      trialOptionsValues,
       email,
     };
+
 
     // Endpoint to which the POST request will be sent
     const url = `${import.meta.env.VITE_BACKEND_URL}/send-email`; // Replace with your actual endpoint
@@ -153,7 +157,7 @@ const Questionnaire = () => {
       headers: {
         "Content-Type": "application/json", // Specify JSON as the content type
       },
-      // body: JSON.stringify(data), // Convert data to JSON string
+      body: JSON.stringify(data), // Convert data to JSON string
     };
 
     // Make the POST request
@@ -209,9 +213,6 @@ const Questionnaire = () => {
         break;
     }
     setCurrentQuestion((prev) => prev + 1);
-    if(currentQuestion == 4) {
-      handleSubmit();
-    }
     setError("");
   };
 

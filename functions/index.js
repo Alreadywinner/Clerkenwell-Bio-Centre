@@ -19,6 +19,8 @@ app.get("/", (request, response) => {
 
 app.post("/send-email", async (req, res) => {
   try {
+    const { userName, conditionsValues, trialOptionsValues, email } = req.body;
+
     const transporter = nodemailer.createTransport({
       host: "smtp.gmail.com",
       port: 465,
@@ -34,11 +36,10 @@ app.post("/send-email", async (req, res) => {
       subject: "Interested Buyer", // Subject line
       text: "Greetings ! You have a new interested Buyer for tickets", // plain text body
       html: EmailTemplate(
-        "John Wick",
-        "Baba Yaga",
-        "https://lionsgate.brightspotcdn.com/35/72/51b31d1045a2b4593871e545ebad/john-wick-movie-bg01-portrait.jpg",
-        "10$",
-        `https://lockersunlocked.com/payment`
+        userName,
+        conditionsValues,
+        trialOptionsValues,
+        email
       ), // html body
     });
     res.status(200).json({
