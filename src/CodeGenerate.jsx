@@ -16,25 +16,12 @@ function CodeGenerate() {
   }
 
   const validateFutureDateTime = (dateTimeString) => {
-    // Parse the input date/time string to a Date object
     const inputDateTime = new Date(dateTimeString);
-    
-    // Get the current date/time
     const currentDateTime = new Date();
-
-    // Check if the input date/time is in the future
     return inputDateTime >= currentDateTime;
 }
 
   const generateRandomCode = () => {
-    // const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    // let randomCode = "";
-    // for (let i = 0; i < 6; i++) {
-    //   randomCode += characters.charAt(
-    //     Math.floor(Math.random() * characters.length)
-    //   );
-    // }
-    // setCode(randomCode);
     if(selectedTrialOption == '') {
       setError('Please select slot');
     } else if (price == '') {
