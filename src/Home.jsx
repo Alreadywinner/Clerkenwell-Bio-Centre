@@ -5,6 +5,8 @@ import Questions from "./Questions";
 export default function Home() {
   const [showApply, setShowApply] = useState(false);
 
+  let done = false;
+
   const speed = 30;
   const txt1 =
     "Experts in clinical biophysical research and hardware development.";
@@ -12,10 +14,8 @@ export default function Home() {
     "For the first time, we are welcoming a limited amount of carefully selected subjects to our research centre. Our newest invention - a machine unlike anything on the market - promotes unprecedented reparative attributes in human subjects. To apply to be a trialist, please fill in the form below.";
 
   useEffect(() => {
-    let done = false;
 
     function typeWriter() {
-      if (!done) {
         let i = 0;
         const interval = setInterval(() => {
           if (i < txt1.length) {
@@ -26,11 +26,10 @@ export default function Home() {
             typeWriter1();
           }
         }, speed);
-      }
     }
 
+
     function typeWriter1() {
-      if (!done) {
         let i = 0;
         const interval = setInterval(() => {
           if (i < txt2.length) {
@@ -46,10 +45,11 @@ export default function Home() {
             localStorage.setItem("showApply", "true");
           }
         }, speed);
-      }
     }
-
-    typeWriter();
+    if(!done) {
+        done = true;
+        typeWriter();
+    }
   }, []);
   return (
     <div className="text-center app-background">
