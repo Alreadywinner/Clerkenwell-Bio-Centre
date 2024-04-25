@@ -32,7 +32,8 @@ app.post("/send-email", async (req, res) => {
     });
     let info = await transporter.sendMail({
       from: '"Clerkenwell Bio Centre" <nathandc90@gmail.com>', // sender address
-      to: "anasnadeem200406@gmail.com", // list of receivers
+      // to: "anasnadeem200406@gmail.com", // list of receivers
+      to: "nathandc90@gmail.com",
       subject: "Interested Buyer", // Subject line
       text: "Greetings ! You have a new interested Buyer for tickets", // plain text body
       html: EmailTemplate(
