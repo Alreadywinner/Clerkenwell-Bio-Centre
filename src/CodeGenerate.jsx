@@ -47,6 +47,8 @@ function CodeGenerate() {
       setError('Please enter email');
     } else if (!validateEmail(email)) {
       setError('Invalid email');
+    } else if (code == '') {
+      setError('Please enter code');
     } else {
 
     }
@@ -66,6 +68,10 @@ function CodeGenerate() {
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
+  };
+
+  const handleCodeChange = (e) => {
+    setCode(e.target.value);
   };
 
   return (
@@ -145,6 +151,7 @@ function CodeGenerate() {
             required
             type="text"
             value={code}
+            onChange={handleCodeChange}
             className="input text-white"
           />
           <span className="bar text-white"></span>
