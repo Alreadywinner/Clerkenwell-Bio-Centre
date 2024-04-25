@@ -24,18 +24,25 @@ function CodeGenerate() {
   const generateRandomCode = () => {
     if (selectedTrialOption == "") {
       setError("Please select slot");
+      return;
     } else if (price == "") {
       setError("Please select price");
+      return;
     } else if (expiryDateTime == "") {
       setError("Please enter expiry date");
+      return;
     } else if (!validateFutureDateTime(expiryDateTime)) {
       setError("selected date cannot be less than current date and time");
+      return;
     } else if (email == "") {
       setError("Please enter email");
+      return;
     } else if (!validateEmail(email)) {
       setError("Invalid email");
+      return;
     } else if (code == "") {
       setError("Please enter code");
+      return;
     } else {
       handleSubmit();
     }
@@ -65,13 +72,13 @@ function CodeGenerate() {
     const data = {
       userName,
       selectedConditions,
-      selectedTrialOptions,
+      selectedTrialOption,
       email,
       code,
-      selectedTrialOption,
       price,
       expiryDateTime,
     };
+    console.log({ data });
   };
 
   return (

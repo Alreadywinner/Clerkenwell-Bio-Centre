@@ -3,6 +3,7 @@ const cors = require("cors")({ origin: true });
 const dotenv = require("dotenv");
 const express = require("express");
 const EmailTemplate = require("./EmailTemplate");
+const nodemailer = require("nodemailer");
 
 dotenv.config();
 // admin.initializeApp();
