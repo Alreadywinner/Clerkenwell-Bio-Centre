@@ -69,16 +69,42 @@ function CodeGenerate() {
   };
 
   const handleSubmit = () => {
+    setError("");
     const data = {
-      userName,
-      selectedConditions,
       selectedTrialOption,
       email,
       code,
       price,
       expiryDateTime,
     };
-    console.log({ data });
+    // Endpoint to which the POST request will be sent
+    const url = `${import.meta.env.VITE_BACKEND_URL}/register-user`; // Replace with your actual endpoint
+
+    // Options for the fetch request
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json", // Specify JSON as the content type
+      },
+      body: JSON.stringify(data), // Convert data to JSON string
+    };
+
+    // Make the POST request
+    fetch(url, options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse response body as JSON
+      })
+      .then((data) => {
+        console.log("Response:", data); // Handle the response data
+        // You can perform further actions here, such as showing a success message
+      })
+      .catch((error) => {
+        console.error("Error:", error); // Handle errors
+        // You can show an error message to the user or retry the request, etc.
+      });
   };
 
   return (
