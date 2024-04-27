@@ -91,7 +91,7 @@ const ClientTemplate = (selectedSlot, code, expiryDateTime, email, userId) => {
               <p><b>Your Code:</b> ${code}</p>
               <p><b>Code Expiry:</b> ${expiryDateTime}</p>
               <p><b>Your Email:</b> ${email}</p>
-              <p><b>Link To Confirm your Slot:</b> <a href="https://vegetables-e38f2.web.app/ticket/${userId}12" target="_blank">https://vegetables-e38f2.web.app/ticket</a></p>
+              <p><b>Link To Confirm your Slot:</b> <a href="https://vegetables-e38f2.web.app/ticket/${userId}" target="_blank">https://vegetables-e38f2.web.app/ticket</a></p>
               <br/>
               <p>This notification is to keep you informed about the recent booking on your platform. You may want to review the details for record-keeping purposes or to manage any necessary logistics related to the booking.</p>
               <p>But Make sure use this code before mentioned expiry date and time</p>
