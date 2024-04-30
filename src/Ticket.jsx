@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Ticket = () => {
   const [code, setCode] = useState("");
@@ -11,21 +11,12 @@ const Ticket = () => {
   const [showDate, setShowDate] = useState(false);
   const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
-  const { id } = useParams();
-  if (!id) {
-    navigate("/");
-  }
   const handleInputChange = (e) => {
     setCode(e.target.value);
   };
 
   const handleCodeConfirmation = async () => {
     try {
-      // Validate code length
-      if (code.length !== 6) {
-        alert("Please enter a valid 6-digit code.");
-        return;
-      }
       const url = `${import.meta.env.VITE_BACKEND_URL}/validate-code`;
       // Make the POST request to the backend API
       const response = await fetch(url, {
@@ -34,7 +25,6 @@ const Ticket = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: id, // Assuming userId is defined elsewhere in your code
           code: code,
         }),
       });
@@ -42,7 +32,6 @@ const Ticket = () => {
       // Check if request was successful
       if (response.ok) {
         const data = await response.json();
-
         // Check if userData exists and expiryDateTime is valid
         if (data.userData && data.userData.expiryDateTime) {
           const expiryDateTime = new Date(data.userData.expiryDateTime);
@@ -78,25 +67,39 @@ const Ticket = () => {
     }
   };
 
-  const handlePayment = () => {
-    window.location.href = "STRIPE_PAYMENT_URL";
-  };
-
-  const handleConfirmBooking = () => {
-    setBooked(true);
-  };
-
-  const getDate = () => {
-    const date = new Date();
-    const options = {
-      weekday: "long",
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
+  const handleConfirmBooking = async () => {
+    // Define the backend API URL
+    const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/confirm-booking`;
+    // Prepare the request body
+    const requestBody = {
+      id: userData.userId, // Replace with the user ID you want to confirm booking for
     };
-    return date.toLocaleDateString("en-US", options);
+
+    // Prepare the fetch options
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    };
+
+    // Perform the fetch request
+    fetch(apiUrl, options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json(); // Parse response body as JSON
+      })
+      .then((data) => {
+        setBooked(true);
+      })
+      .catch((error) => {
+        console.error("Error:", error); // Handle errors
+        alert("An error occurred. Please try again.");
+        // Optionally, you can show an error message to the user or retry the request, etc.
+      });
   };
 
   return (
@@ -110,7 +113,7 @@ const Ticket = () => {
                 <Form.Group controlId="formCode">
                   <Form.Control
                     type="text"
-                    placeholder="Enter 6-digit code"
+                    placeholder="Enter your code"
                     value={code}
                     onChange={handleInputChange}
                     className="mb-3"
@@ -162,7 +165,10 @@ const Ticket = () => {
                     ) : (
                       <>
                         <p>The amount you owe : {`${userData.price}`}</p>
-                        <Button variant="success" onClick={handlePayment}>
+                        <Button
+                          variant="success"
+                          onClick={handleConfirmBooking}
+                        >
                           Confirm Booking
                         </Button>
                       </>

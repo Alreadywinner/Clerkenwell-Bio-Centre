@@ -16,7 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/code-generate" element={<CodeGenerate />} />
         <Route path="/questionnaire" element={<Questionnaire />} />
-        <Route path="/ticket/:id" element={<Ticket />} />
+        <Route path="/ticket" element={<Ticket />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
