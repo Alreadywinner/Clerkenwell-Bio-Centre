@@ -34,8 +34,8 @@ app.post("/send-email", async (req, res) => {
       },
     });
     let info = await transporter.sendMail({
-      from: '"Clerkenwell Bio Centre" <nathandc90@gmail.com>', // sender address
-      to: "nathandc90@gmail.com",
+      from: '"Clerkenwell Bio Centre" <angela@clerkenwell-bio-botanics.co.uk>', // sender address
+      to: "angela@clerkenwell-bio-botanics.co.uk",
       subject: "Interested Buyer", // Subject line
       text: "Greetings ! You have a new interested Buyer for tickets", // plain text body
       html: EmailTemplate(
@@ -87,8 +87,8 @@ app.post("/register-user", async (req, res) => {
         },
       });
       let info = await transporter.sendMail({
-        from: '"Clerkenwell Bio Centre" <nathandc90@gmail.com>', // sender address
-        to: "nathandc90@gmail.com",
+        from: '"Clerkenwell Bio Centre" <angela@clerkenwell-bio-botanics.co.uk>', // sender address
+        to: "angela@clerkenwell-bio-botanics.co.uk",
         subject: "Your Ticket Booking Details", // Subject line
         text: "Greetings ! Congratulations you have been able to reserve your spot", // plain text body
         html: ClientTemplate(selectedSlot, code, expiryDateTime, email, userId), // html body
@@ -168,8 +168,8 @@ app.post("/confirm-booking", async (req, res) => {
       },
     });
     let info = await transporter.sendMail({
-      from: '"Clerkenwell Bio Centre" <nathandc90@gmail.com>', // sender address
-      to: "nathandc90@gmail.com",
+      from: '"Clerkenwell Bio Centre" <angela@clerkenwell-bio-botanics.co.uk>', // sender address
+      to: "angela@clerkenwell-bio-botanics.co.uk",
       subject: "Your Ticket Booking Details", // Subject line
       text: "Greetings! Congratulations, you have successfully reserved your spot.", // plain text body
       html: ConfirmTemplate(userData.selectedSlot, userData.email, id), // html body
